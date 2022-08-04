@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!--Сделать страницу, в которой есть: картинки, таблица с colspan и rowspan,
+абзацы, заголовки, ссылки (пусть одна из них ведет на страницу с формой из п.1),
+горизонтальные линии и переводы строки и что еще угодно-->
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Домашнее задание №2, задача №2</title>
+<!--    <link>-->
+</head>
+<body>
+    <h1 id="head">Справочная информация к заказу</h1>
+    <br/>
+    <hr/>
+    <p>
+        <img src="img1.jpg"/>
+    </p>
+    <hr/>
+    <p>
+        Ниже приведена информационная таблица по консолям
+    </p>
+    <br/>
+    <table border="1">
+        <tr>
+          <th>Компания</th>
+          <th>Консоль</th>
+          <th>Процессор</th>
+        </tr>
+        <tr>
+            <td rowspan="4">Sony</td>
+            <td>PlayStation 2</td>
+            <td rowspan="2">AMD</td>
+        </tr>
+        <tr>
+            <td>PlayStation 3</td>
+        </tr>
+        <tr>
+            <td>PlayStation 4</td>
+            <td rowspan="2">Nvidea</td>
+        </tr>
+        <tr>
+            <td>PlayStation 5</td>
+        </tr>
+        <tr>
+            <td>Microsoft</td>
+            <td>Xbox S</td>
+            <td>Intel</td>
+        </tr>
+        <tr>
+            <td>Sega Corporation</td>
+            <td>Sega Mega Drive</td>
+            <td>Motorola</td>
+        </tr>
+        <tr>
+            <td colspan="3">Объединение colspan для примера</td>
+        </tr>
+    </table>
+    <br/>
+    <hr/>
+    <a href="#head">К заголовку</a>
+    <br/>
+    <hr/>
+    <a target="_blank" href="Index_1.html">К заявке</a>
+    <br/>
+    <hr/>
+    <a href="tel:+79991112233">Обратная связь</a>
+</body>
+</html>

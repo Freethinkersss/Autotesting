@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!--Сделать страницу с формой, в которой будут следующие виды элементов:
+текстовые поля ввода, многострочные поля ввода, чекбоксы, радио-баттоны,
+выпадающие списки с единичным и множественным выбором, кнопка-->
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Домашнее задание №2, задача №1</title>
+</head>
+<body>
+    <form action="url_zayavka">
+    <h1>Заявка на приобритение игровой консоли</h1>
+    <br/>
+    <hr/>
+    <label>
+        Ваше ФИО: <input type="text" name="clientName" />
+    </label>
+    <br/>
+    <hr/>
+    <label> Выберите консоль:
+        <select size="4" multiple name="console">
+            <option> PlayStation 3</option>
+            <option> PlayStation 4</option>
+            <option> PlayStation 5</option>
+            <option> Xbox S</option>
+        </select>
+    </label>
+        <br/>
+        <hr/>
+    <label> Выберите подарочную игру:
+        <input type="radio" value="1" name="giftGame"> Horizon: Zero Down
+        <input type="radio" value="2" name="giftGame"> God of War: Ragnarok
+        <input type="radio" value="1" name="giftGame"> Assassin's creed: Valhalla
+    </label>
+    <br/>
+    <hr/>
+    <label> Выберите адрес магазина для самовывоза:
+        <select size="1" name="storeAddress">
+            <option> г. Новосибирск, ул. Ленина, д.1 </option>
+            <option> г. Новосибирск, ул. Военная, д.9 </option>
+            <option> г. Новосибирск, ул. Кошурникова, д.21/1 </option>
+            <option> г. Новосибирск, ул. Советская, д.17 </option>
+        </select>
+    </label>
+    <br/>
+    <hr/>
+    <label>
+        Комментарий к заказу: <textarea name="comment">...</textarea>
+    </label>
+    <br/>
+    <hr/>
+    <label> Согласие на обработку персональных данных
+        <input type="checkbox"/>
+    </label>
+    <br/>
+    <label> Согласие с условиями акции
+        <input type="checkbox"/>
+    </label>
+    <br/>
+    <label> Согласие с политикой конфендициальности
+        <input type="checkbox"/>
+    </label>
+    <br/>
+    <hr/>
+    <label>
+        <input type="submit" value="Отправить заявку"/>
+    </label>
+    </form>
+</body>
+</html>

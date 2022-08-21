@@ -4,12 +4,12 @@
 public class For {
     public static void main(String[] args) {
         for (int i = 100; i > 1; i--) {
-            if (MultipleOfFour(i)) {
+            if (DivisibleByFour(i)) {
                 System.out.println("Это число кратно четырем --> " + i);
             }
         }
     }
-    public static boolean MultipleOfFour(int i) {
+    public static boolean DivisibleByFour(int i) {
         return i % 4 == 0;
     }
 }

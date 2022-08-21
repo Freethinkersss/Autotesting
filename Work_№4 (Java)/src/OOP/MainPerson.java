@@ -1,4 +1,4 @@
-package ru.person.java;
+package OOP;
 
 import java.util.Scanner;
 

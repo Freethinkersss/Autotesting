@@ -39,7 +39,7 @@ public class Person {
     }
 
     public int getAge () {
-        return age;
+      return age;
     }
 
     public void setName (String name) {
@@ -55,7 +55,9 @@ public class Person {
     }
 
     public void setAge (int age) {
-        this.age = age;
+        if (age > 0) {
+            this.age = age;
+        }
     }
 
     @Override

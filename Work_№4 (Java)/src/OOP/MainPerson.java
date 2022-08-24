@@ -22,5 +22,10 @@ public class MainPerson {
         System.out.println("Год рождения: " + person.getBirthYear());
 
         System.out.println("Объект класса Person был создан: " + person);
+
+        person.setAge(26);
+
+        System.out.println("Измененный возраст через сеттер - " + person.getAge());
+        System.out.println("Новый год рождения: " + person.getBirthYear());
     }
 }

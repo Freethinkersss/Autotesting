@@ -92,8 +92,8 @@ public class formTesting {
         WebElement userHobbies = driver.findElement(By.cssSelector("#hobbiesWrapper > div.col-md-9.col-sm-12 > div:nth-child(1) > label"));
         actions.moveToElement(userHobbies).click().perform();
 
-        String pictureName = "picture.jpg";
-        File picture = new File("src/test/java/testingViaSeleniumWD/" + pictureName);
+        String pictureName = "pictureLeopard.jpg";
+        File picture = new File("Work_№5 (Selenium WebDriver)/src/test/java/testingViaSeleniumWD/" + pictureName);
         WebElement uploadPicture = driver.findElement(By.id("uploadPicture"));
         uploadPicture.sendKeys(picture.getAbsolutePath());
 

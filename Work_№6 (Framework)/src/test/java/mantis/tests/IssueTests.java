@@ -18,7 +18,7 @@ public class IssueTests extends BaseTest {
     }
 
     @Test
-    public void IssueTests() throws InterruptedException {
+    public void addAndDeleteIssueTest() throws InterruptedException {
         mantisSite = new MantisSite(driver);
         mantisSite.login("admin", "admin20");
         mantisSite.getMainPage().goToReportIssuesPage();

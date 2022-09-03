@@ -7,8 +7,6 @@ import org.junit.jupiter.api.Test;
 
 public class IssueTests extends BaseTest {
 
-    private MantisSite mantisSite;
-
     private SoftAssertions softAssert = new SoftAssertions();
 
     @Test
@@ -18,8 +16,8 @@ public class IssueTests extends BaseTest {
     }
 
     @Test
-    public void addAndDeleteIssueTest() throws InterruptedException {
-        mantisSite = new MantisSite(driver);
+    public void addAndDeleteIssueTest() {
+        MantisSite mantisSite = new MantisSite(driver);
         mantisSite.login("admin", "admin20");
         mantisSite.getMainPage().goToReportIssuesPage();
         mantisSite.reportIssue();

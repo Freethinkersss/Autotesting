@@ -8,7 +8,7 @@ public class MantisSite {
     private PasswordPage passwordPage;
     private MainPage mainPage;
 
-    private  ReportIssuePage reportIssuePage;
+    private ReportIssuePage reportIssuePage;
 
     private ViewIssuesPage viewIssuesPage;
 
@@ -28,12 +28,6 @@ public class MantisSite {
     public void login(String login, String password) {
         loginPage.login(login);
         passwordPage.login(password);
-    }
-
-    public void reportIssue() {
-        reportIssuePage.inputSummary();
-        reportIssuePage.inputDescription();
-        reportIssuePage.submitIssue();
     }
 
     public LoginPage getLoginPage() {

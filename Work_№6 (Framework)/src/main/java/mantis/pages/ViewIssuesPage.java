@@ -14,7 +14,7 @@ public class ViewIssuesPage {
     private final WebDriverWait wait;
 
     @FindBy(css = "tr:nth-child(1) > td.column-id > a")
-    private WebElement myIssueId;
+    private WebElement lastIssueId;
 
     public ViewIssuesPage(WebDriver driver) {
         this.driver = driver;
@@ -22,10 +22,10 @@ public class ViewIssuesPage {
         PageFactory.initElements(driver, this);
     }
 
-    public String getMyIssueId() {
-        return myIssueId.getText();
+    public String getLastIssueId() {
+        return lastIssueId.getText();
     }
-    public void openDetailsMyIssue() {
-        myIssueId.click();
+    public void openDetailsLastIssue() {
+        lastIssueId.click();
     }
 }

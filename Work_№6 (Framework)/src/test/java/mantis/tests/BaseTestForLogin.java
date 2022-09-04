@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class BaseTest {
+public class BaseTestForLogin {
     public WebDriver driver;
 
     @BeforeEach
@@ -21,9 +21,9 @@ public class BaseTest {
         driver.manage().window().maximize();
     }
 
-
     @AfterEach
     public void tearDown() {
         driver.quit();
     }
 }
+

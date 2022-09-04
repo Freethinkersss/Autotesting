@@ -30,13 +30,10 @@ public class ReportIssuePage {
         wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         PageFactory.initElements(driver, this);
     }
-    public void inputSummary() {
+
+    public void reportIssue() {
         summaryField.sendKeys(summaryText);
-    }
-    public void inputDescription() {
         descriptionField.sendKeys(descriptionText);
-    }
-    public void submitIssue() {
         issueCreationButton.click();
     }
 }

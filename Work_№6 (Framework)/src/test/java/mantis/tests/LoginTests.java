@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class LoginTests extends BaseTest{
+public class LoginTests extends BaseTestForLogin {
 
     private MantisSite mantisSite;
 
@@ -23,15 +23,5 @@ public class LoginTests extends BaseTest{
     public void loginTitleTest() {
         String currentTitle = driver.getTitle();
         Assertions.assertEquals("MantisBT", currentTitle);
-    }
-
-    @Test
-    public void successfulLoginTest() throws InterruptedException {
-        mantisSite = new MantisSite(driver);
-        mantisSite.login("admin", "admin20");
-
-        String currentUserName = mantisSite.getMainPage().getUserName();
-        Assertions.assertEquals("admin", currentUserName);
-        Thread.sleep(1000);
     }
 }

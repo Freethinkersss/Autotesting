@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.time.Duration;
 
 public class IssueDetailsPage {
@@ -13,19 +14,19 @@ public class IssueDetailsPage {
     private final WebDriverWait wait;
 
     @FindBy(css = "td.bug-id")
-    private WebElement myIssueIdFromDetails;
+    private WebElement lastIssueIdFromDetails;
 
     @FindBy(css = "tr:nth-child(11) > td")
-    private WebElement myIssueDescriptionFromDetails;
+    private WebElement lastIssueDescriptionFromDetails;
 
     @FindBy(css = "tr:nth-child(10) > td")
-    private WebElement myIssueSummaryFromDetails;
+    private WebElement lastIssueSummaryFromDetails;
 
     @FindBy(css = "input[value='Delete']")
-    private WebElement deleteMyIssueFromDetails;
+    private WebElement deleteLastIssueFromDetails;
 
     @FindBy(css = "input[value='Delete Issues']")
-    private WebElement confirmationOfDeleteMyIssue;
+    private WebElement confirmationOfDeleteLastIssue;
 
     public IssueDetailsPage(WebDriver driver) {
         this.driver = driver;
@@ -33,24 +34,24 @@ public class IssueDetailsPage {
         PageFactory.initElements(driver, this);
     }
 
-    public String getMyIssueIdFromDetails() {
-        return myIssueIdFromDetails.getText();
+    public String getLastIssueIdFromDetails() {
+        return lastIssueIdFromDetails.getText();
     }
 
-    public String getMyIssueDescriptionFromDetails() {
-        return myIssueDescriptionFromDetails.getText();
+    public String getLastIssueDescriptionFromDetails() {
+        return lastIssueDescriptionFromDetails.getText();
     }
 
-    public String getmyIssueSummaryFromDetails() {
-        return myIssueSummaryFromDetails.getText();
+    public String getLastIssueSummaryFromDetails() {
+        return lastIssueSummaryFromDetails.getText();
     }
 
-    public void deleteMyIssueFromDetails() {
-        deleteMyIssueFromDetails.click();
+    public void deleteLastIssueFromDetails() {
+        deleteLastIssueFromDetails.click();
     }
 
-    public void deleteMyIssue() {
-        deleteMyIssueFromDetails.click();
-        confirmationOfDeleteMyIssue.click();
+    public void deleteLastIssue() {
+        deleteLastIssueFromDetails.click();
+        confirmationOfDeleteLastIssue.click();
     }
 }

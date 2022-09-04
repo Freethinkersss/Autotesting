@@ -12,10 +12,9 @@ public class IssueTests extends BaseTestForIssue {
     @Test
     public void addAndDeleteIssueTest() {
         MantisSite mantisSite = new MantisSite(driver);
-        ReportIssuePage reportIssuePage = new ReportIssuePage(driver); //
-/*        mantisSite.login("admin", "admin20");*/
+        ReportIssuePage reportIssuePage = new ReportIssuePage(driver);
         mantisSite.getMainPage().goToReportIssuesPage();
-        reportIssuePage.reportIssue(); //
+        reportIssuePage.reportIssue();
         mantisSite.getMainPage().goToViewIssuesPage();
 
         String issueId = mantisSite.getViewIssuesPage().getLastIssueId();

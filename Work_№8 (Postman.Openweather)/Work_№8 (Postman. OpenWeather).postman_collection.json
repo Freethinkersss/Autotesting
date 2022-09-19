@@ -1,0 +1,1261 @@
+{
+	"info": {
+		"_postman_id": "f2192b8d-fcad-4658-863a-9162fdab227a",
+		"name": "Work_№8 (Postman. OpenWeather)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23196648"
+	},
+	"item": [
+		{
+			"name": "Task_1",
+			"item": [
+				{
+					"name": "(Test_1) InvalidAppIdTest",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Json message mentions invalid API\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.message).to.contain(\"Invalid API\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{invalidAppId}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "query",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "AppId",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/data/2.5/weather?q={{validCity}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"data",
+								"2.5",
+								"weather"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "{{validCity}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "(Test_2) RandomCityTest (SavingCityNameInVariable)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"/* Тест на сохранение названия города в переменную, если он есть в базе сайта. В противном случае - тест на отображение сообщения об отсутсвии такого города в базе. */\r",
+									"\r",
+									"pm.test(\"Checking a random city and saving its name if it exists in the database\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"\r",
+									"    if (pm.response.code == 200) {\r",
+									"        pm.environment.set(\"RandomCityName\", jsonData.name);\r",
+									"    } else {\r",
+									"        pm.test(\"Json message mentions city not found\", function () {\r",
+									"        pm.expect(jsonData.message).to.contain(\"city not found\");\r",
+									"        });\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{validAppId}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "query",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "AppId",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/data/2.5/weather?q={{$randomCity}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"data",
+								"2.5",
+								"weather"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "{{$randomCity}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "(Test_3) ValidCityTestAndSaveCityId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Save city id\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.environment.set(\"validCityId\", jsonData.id);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{validAppId}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "query",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "AppId",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/data/2.5/weather?q={{validCity}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"data",
+								"2.5",
+								"weather"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "{{validCity}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "(Test_4) InvalidCityTest",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Json message mentions city not found\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.message).to.contain(\"city not found\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{validAppId}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "query",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "AppId",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/data/2.5/weather?q={{invalidCity}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"data",
+								"2.5",
+								"weather"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "{{invalidCity}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "(Test_5) ValidCityIdTest",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{validAppId}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "query",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "AppId",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/data/2.5/weather?id={{validCityId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"data",
+								"2.5",
+								"weather"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{validCityId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "(Test_6) InvalidCityIdTest",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Json message mentions city not found\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.message).to.contain(\"city not found\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{validAppId}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "query",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "AppId",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/data/2.5/weather?id={{invalidCityId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"data",
+								"2.5",
+								"weather"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{invalidCityId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "(Test_7) ValidZipCodeTest",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{validAppId}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "query",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "AppId",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/data/2.5/weather?zip={{validZip}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"data",
+								"2.5",
+								"weather"
+							],
+							"query": [
+								{
+									"key": "zip",
+									"value": "{{validZip}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "(Test_8) InvalidZipCodeTest",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Json message mentions city not found\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.message).to.contain(\"city not found\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{validAppId}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "query",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "AppId",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/data/2.5/weather?zip={{invalidZip}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"data",
+								"2.5",
+								"weather"
+							],
+							"query": [
+								{
+									"key": "zip",
+									"value": "{{invalidZip}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "(Test_9) ValidLangTest",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Actual city in English is as validCity variable\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var city = pm.variables.get(\"validCity\");\r",
+									"    pm.expect(jsonData.name).to.eql(city);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{validAppId}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "query",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "AppId",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/data/2.5/weather?q={{validCity}}&lang={{validLang}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"data",
+								"2.5",
+								"weather"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "{{validCity}}"
+								},
+								{
+									"key": "lang",
+									"value": "{{validLang}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "(Test_10) ValidUnitsTest",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{validAppId}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "query",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "AppId",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/data/2.5/weather?q={{validCity}}&lang={{validLang}}&units={{validUnits}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"data",
+								"2.5",
+								"weather"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "{{validCity}}"
+								},
+								{
+									"key": "lang",
+									"value": "{{validLang}}"
+								},
+								{
+									"key": "units",
+									"value": "{{validUnits}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Task_1"
+		},
+		{
+			"name": "Task_2",
+			"item": [
+				{
+					"name": "(Test_11) WeatherMainAndWeatherIdIsEqual",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var weatherId = pm.response.json().weather[0].id;\r",
+									"\r",
+									"if (weatherId>=200 && weatherId<=232) {\r",
+									"pm.test(\"Weather main and weather id is equal\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.weather[0].main).to.eql(\"Thunderstorm\");\r",
+									"});\r",
+									"} else if (weatherId>=300 && weatherId<=321) {\r",
+									"pm.test(\"Weather main and weather id is equal\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.weather[0].main).to.eql(\"Drizzle\");\r",
+									"});\r",
+									"} else if (weatherId>=500 && weatherId<=521) {\r",
+									"pm.test(\"Weather main and weather id is equal\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.weather[0].main).to.eql(\"Rain\");\r",
+									"});\r",
+									"} else if (weatherId>=600 && weatherId<=622) {\r",
+									"pm.test(\"Weather main and weather id is equal\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.weather[0].main).to.eql(\"Snow\");\r",
+									"});\r",
+									"} else if (weatherId==800) {\r",
+									"pm.test(\"Weather main and weather id is equal\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.weather[0].main).to.eql(\"Clear\");\r",
+									"});\r",
+									"} else {\r",
+									"pm.test(\"Weather main and weather id is equal\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.weather[0].main).to.eql(\"Clouds\");\r",
+									"});\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{validAppId}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "query",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "AppId",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/data/2.5/weather?q={{validCity}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"data",
+								"2.5",
+								"weather"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "{{validCity}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Task_3",
+			"item": [
+				{
+					"name": "SaveAndReuseVariable",
+					"item": [
+						{
+							"name": "SaveLonAndLat",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Save lat and lot values\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.environment.set(\"lon\", jsonData.coord.lon);\r",
+											"    pm.environment.set(\"lat\", jsonData.coord.lat);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "{{validAppId}}",
+											"type": "string"
+										},
+										{
+											"key": "in",
+											"value": "query",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "AppId",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/data/2.5/weather?q={{validCity}}",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"data",
+										"2.5",
+										"weather"
+									],
+									"query": [
+										{
+											"key": "q",
+											"value": "{{validCity}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UseLonAndLat",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"var expectedCity = pm.variables.get(\"validCity\");\r",
+											"\r",
+											"pm.test(\"The current city name corresponds to the city from the variable\", \r",
+											"    function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.name).to.eql(expectedCity);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "{{validAppId}}",
+											"type": "string"
+										},
+										{
+											"key": "in",
+											"value": "query",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "AppId",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/data/2.5/weather?lat={{lat}}&lon={{lon}}",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"data",
+										"2.5",
+										"weather"
+									],
+									"query": [
+										{
+											"key": "lat",
+											"value": "{{lat}}"
+										},
+										{
+											"key": "lon",
+											"value": "{{lon}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "(Test_12) DynamicVariableTest",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var id = pm.response.json().id;\r",
+									"var name = pm.response.json().name;\r",
+									"\r",
+									"if (id != 0) {\r",
+									"    pm.test(\"There is a city\", function () {\r",
+									"        pm.expect(name).to.be.not.empty;\r",
+									"});\r",
+									"} else {\r",
+									"    pm.test(\"There is no city\", function () {\r",
+									"        pm.expect(name).to.be.empty;\r",
+									"});\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{validAppId}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "query",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "AppId",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/data/2.5/weather?lat={{$randomLatitude}}&lon={{$randomLongitude}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"data",
+								"2.5",
+								"weather"
+							],
+							"query": [
+								{
+									"key": "lat",
+									"value": "{{$randomLatitude}}"
+								},
+								{
+									"key": "lon",
+									"value": "{{$randomLongitude}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Task_4",
+			"item": [
+				{
+					"name": "(Test_13) JsonSchemaStatusCode200",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"coord\": {\r",
+									"      \"type\": \"object\",\r",
+									"      \"properties\": {\r",
+									"        \"lon\": {\r",
+									"          \"type\": \"number\"\r",
+									"        },\r",
+									"        \"lat\": {\r",
+									"          \"type\": \"number\"\r",
+									"        }\r",
+									"      },\r",
+									"      \"required\": [\r",
+									"        \"lon\",\r",
+									"        \"lat\"\r",
+									"      ]\r",
+									"    },\r",
+									"    \"weather\": {\r",
+									"      \"type\": \"array\",\r",
+									"      \"items\": [\r",
+									"        {\r",
+									"          \"type\": \"object\",\r",
+									"          \"properties\": {\r",
+									"            \"id\": {\r",
+									"              \"type\": \"integer\"\r",
+									"            },\r",
+									"            \"main\": {\r",
+									"              \"type\": \"string\"\r",
+									"            },\r",
+									"            \"description\": {\r",
+									"              \"type\": \"string\"\r",
+									"            },\r",
+									"            \"icon\": {\r",
+									"              \"type\": \"string\"\r",
+									"            }\r",
+									"          },\r",
+									"          \"required\": [\r",
+									"            \"id\",\r",
+									"            \"main\",\r",
+									"            \"description\",\r",
+									"            \"icon\"\r",
+									"          ]\r",
+									"        }\r",
+									"      ]\r",
+									"    },\r",
+									"    \"base\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"main\": {\r",
+									"      \"type\": \"object\",\r",
+									"      \"properties\": {\r",
+									"        \"temp\": {\r",
+									"          \"type\": \"number\"\r",
+									"        },\r",
+									"        \"feels_like\": {\r",
+									"          \"type\": \"number\"\r",
+									"        },\r",
+									"        \"temp_min\": {\r",
+									"          \"type\": \"number\"\r",
+									"        },\r",
+									"        \"temp_max\": {\r",
+									"          \"type\": \"number\"\r",
+									"        },\r",
+									"        \"pressure\": {\r",
+									"          \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"humidity\": {\r",
+									"          \"type\": \"integer\"\r",
+									"        }\r",
+									"      },\r",
+									"      \"required\": [\r",
+									"        \"temp\",\r",
+									"        \"feels_like\",\r",
+									"        \"temp_min\",\r",
+									"        \"temp_max\",\r",
+									"        \"pressure\",\r",
+									"        \"humidity\"\r",
+									"      ]\r",
+									"    },\r",
+									"    \"visibility\": {\r",
+									"      \"type\": \"integer\"\r",
+									"    },\r",
+									"    \"wind\": {\r",
+									"      \"type\": \"object\",\r",
+									"      \"properties\": {\r",
+									"        \"speed\": {\r",
+									"          \"type\": \"number\"\r",
+									"        },\r",
+									"        \"deg\": {\r",
+									"          \"type\": \"integer\"\r",
+									"        }\r",
+									"      },\r",
+									"      \"required\": [\r",
+									"        \"speed\",\r",
+									"        \"deg\"\r",
+									"      ]\r",
+									"    },\r",
+									"    \"clouds\": {\r",
+									"      \"type\": \"object\",\r",
+									"      \"properties\": {\r",
+									"        \"all\": {\r",
+									"          \"type\": \"integer\"\r",
+									"        }\r",
+									"      },\r",
+									"      \"required\": [\r",
+									"        \"all\"\r",
+									"      ]\r",
+									"    },\r",
+									"    \"dt\": {\r",
+									"      \"type\": \"integer\"\r",
+									"    },\r",
+									"    \"sys\": {\r",
+									"      \"type\": \"object\",\r",
+									"      \"properties\": {\r",
+									"        \"type\": {\r",
+									"          \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"id\": {\r",
+									"          \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"country\": {\r",
+									"          \"type\": \"string\"\r",
+									"        },\r",
+									"        \"sunrise\": {\r",
+									"          \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"sunset\": {\r",
+									"          \"type\": \"integer\"\r",
+									"        }\r",
+									"      },\r",
+									"      \"required\": [\r",
+									"        \"type\",\r",
+									"        \"id\",\r",
+									"        \"country\",\r",
+									"        \"sunrise\",\r",
+									"        \"sunset\"\r",
+									"      ]\r",
+									"    },\r",
+									"    \"timezone\": {\r",
+									"      \"type\": \"integer\"\r",
+									"    },\r",
+									"    \"id\": {\r",
+									"      \"type\": \"integer\"\r",
+									"    },\r",
+									"    \"name\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"cod\": {\r",
+									"      \"type\": \"integer\"\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"coord\",\r",
+									"    \"weather\",\r",
+									"    \"base\",\r",
+									"    \"main\",\r",
+									"    \"visibility\",\r",
+									"    \"wind\",\r",
+									"    \"clouds\",\r",
+									"    \"dt\",\r",
+									"    \"sys\",\r",
+									"    \"timezone\",\r",
+									"    \"id\",\r",
+									"    \"name\",\r",
+									"    \"cod\"\r",
+									"  ]\r",
+									"};\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"  pm.response.to.have.jsonSchema(schema);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{validAppId}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "query",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "AppId",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/data/2.5/weather?id={{validCityId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"data",
+								"2.5",
+								"weather"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{validCityId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "(Test_14) JsonSchemaStatusCode404",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"cod\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"message\": {\r",
+									"      \"type\": \"string\"\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"cod\",\r",
+									"    \"message\"\r",
+									"  ]\r",
+									"};\r",
+									" \r",
+									"pm.test('Schema is valid', function() {\r",
+									"  pm.response.to.have.jsonSchema(schema);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{validAppId}}",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "query",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "AppId",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/data/2.5/weather?q={{invalidCity}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"data",
+								"2.5",
+								"weather"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "{{invalidCity}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
